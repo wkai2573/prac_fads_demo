@@ -17,11 +17,12 @@ class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState:Bundle?) {
 		super.onCreate(savedInstanceState)
 
+		//抓取新聞
 		appViewModel.getNews()
 
+		//ui
 		setContent {
 			prac_fads_demoTheme {
-				// A surface container using the 'background' color from the theme
 				Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
 					MyApp(appViewModel)
 				}

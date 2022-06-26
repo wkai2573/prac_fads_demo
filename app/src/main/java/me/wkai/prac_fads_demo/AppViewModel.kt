@@ -31,12 +31,12 @@ class AppViewModel(application:Application) : AndroidViewModel(application) {
 	}
 
 	//請求
-	private suspend fun request_getNews(onFailure:(String) -> Unit):Boolean {
+	private fun request_getNews(onFailure:(String) -> Unit):Boolean {
 
 		val _dividerList:MutableList<Divider> = mutableListOf()
 		val _newsList:MutableList<News> = mutableListOf()
 
-		var responseText = ""
+		var responseText:String
 		val url = Urls.getNews
 		runCatching {
 			responseText = request(url)
@@ -48,38 +48,39 @@ class AppViewModel(application:Application) : AndroidViewModel(application) {
 			for (i in 0 until ja_items.length()) {
 				val itemJo = ja_items.getJSONObject(i)
 				val type = if (itemJo.isNull("type")) "" else itemJo.getString("type")
-
-				if (type=="divider") {
-
-					val title = if (itemJo.isNull("title")) "" else itemJo.getString("title")
-					_dividerList.add(Divider(title))
-
-				} else if (type=="news") {
-
-					var mainTitle = ""
-					var subTitle = ""
-					var thumbnail = ""
-					var subscript = ""
-					var created:Long? = null
-					var section = ""
-
-					val appearance = if (itemJo.isNull("appearance")) null else itemJo.getJSONObject("appearance")
-					if (appearance != null) {
-						mainTitle = if (appearance.isNull("mainTitle")) "" else appearance.getString("mainTitle")
-						subTitle = if (appearance.isNull("subTitle")) "" else appearance.getString("subTitle")
-						thumbnail = if (appearance.isNull("thumbnail")) "" else appearance.getString("thumbnail")
-						subscript = if (appearance.isNull("subscript")) "" else appearance.getString("subscript")
+				when (type) {
+					"divider" -> {
+						val title = if (itemJo.isNull("title")) null else itemJo.getString("title")
+						title?.let { _dividerList.add(Divider(it)) }
 					}
-					val extra = if (itemJo.isNull("extra")) null else itemJo.getJSONObject("extra")
-					if (extra != null) {
-						created = if (extra.isNull("created")) null else extra.getLong("created")
-					}
-					val _meta = if (itemJo.isNull("_meta")) null else itemJo.getJSONObject("_meta")
-					if (_meta != null) {
-						section = if (_meta.isNull("section")) "" else _meta.getString("section")
-					}
+					"news" -> {
+						var mainTitle:String? = null
+						var subTitle:String? = null
+						var thumbnail:String? = null
+						var subscript:String? = null
+						var created:Long? = null
+						var section:String? = null
 
-					_newsList.add(News(mainTitle, subTitle, subscript, thumbnail, created, section))
+						val appearance = if (itemJo.isNull("appearance")) null else itemJo.getJSONObject("appearance")
+						if (appearance != null) {
+							mainTitle = if (appearance.isNull("mainTitle")) null else appearance.getString("mainTitle")
+							subTitle = if (appearance.isNull("subTitle")) null else appearance.getString("subTitle")
+							thumbnail = if (appearance.isNull("thumbnail")) null else appearance.getString("thumbnail")
+							subscript = if (appearance.isNull("subscript")) null else appearance.getString("subscript")
+						}
+						val extra = if (itemJo.isNull("extra")) null else itemJo.getJSONObject("extra")
+						if (extra != null) {
+							created = if (extra.isNull("created")) null else extra.getLong("created")
+						}
+						val _meta = if (itemJo.isNull("_meta")) null else itemJo.getJSONObject("_meta")
+						if (_meta != null) {
+							section = if (_meta.isNull("section")) null else _meta.getString("section")
+						}
+						//屬性皆存在, 加入news
+						if (thumbnail != null && created != null && section != null) {
+							_newsList.add(News(mainTitle?:"", subTitle?:"", subscript?:"", thumbnail, created, section))
+						}
+					}
 				}
 			}
 			newsList.postValue(_newsList)

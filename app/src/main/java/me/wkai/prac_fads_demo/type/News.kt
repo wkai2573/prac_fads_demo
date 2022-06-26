@@ -6,7 +6,7 @@ data class News(
 	val subTitle:String,
 	val subscript:String,
 	val thumbnail:String,
-	val created:Long? = null,
+	val created:Long,
 	val section:String,
 
 //	val ref:String,
