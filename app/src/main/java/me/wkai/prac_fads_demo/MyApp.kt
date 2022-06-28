@@ -90,7 +90,7 @@ fun NewsCard(imgUrl:String, time:Long, title:String, from:String, subscript:Stri
 	}
 }
 
-//時間:Long -> String
+//時間: Long -> String
 private fun getDateTime(l:Long):String {
 	try {
 		val sdf = SimpleDateFormat("MMM dd, yyyy 'at' h:mm aaa", Locale.US)
