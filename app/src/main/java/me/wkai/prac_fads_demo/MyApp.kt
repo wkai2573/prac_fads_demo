@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //新聞單卡高度
-const val newsItemHeight = 100
+const val newsItemHeight = 70
 
 //新聞列表
 @Composable
@@ -65,10 +65,8 @@ fun NewsGroup(index:Int, title:String, newsList:List<News>) {
 //新聞卡
 @Composable
 fun NewsCard(imgUrl:String, time:Long, title:String, from:String, subscript:String) {
-	Row(
-		Modifier.height(newsItemHeight.dp).padding(horizontal = 8.dp, vertical = 8.dp)
-	) {
-		Card(modifier = Modifier.size(width = 120.dp, height = newsItemHeight.dp)) {
+	Row (Modifier.height(newsItemHeight.dp).padding(vertical = 8.dp)) {
+		Card(modifier = Modifier.width(150.dp).padding(horizontal = 4.dp)) {
 			Box {
 				AsyncImage(
 					modifier = Modifier.fillMaxSize(),
