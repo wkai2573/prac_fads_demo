@@ -3,13 +3,11 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="me.wkai.prac_fads_demo">
 
-  <!--網路權限-->
-  <uses-permission android:name="android.permission.INTERNET" /> <!--網路-->
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!--網路資訊-->
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!--wifi資訊-->
-  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+  <!-- 權限:網路 -->
+  <uses-permission android:name="android.permission.INTERNET"/>
 
   <application
+    android:name="me.wkai.VectorApplication"
     android:allowBackup="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
     android:fullBackupContent="@xml/backup_rules"
