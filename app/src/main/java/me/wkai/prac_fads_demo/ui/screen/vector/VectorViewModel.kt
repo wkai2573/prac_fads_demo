@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import me.wkai.prac_fads_demo.data.model.Vector
 import me.wkai.prac_fads_demo.data.repository.VectorRepository
@@ -26,10 +27,11 @@ class VectorViewModel @Inject constructor(
 
 	//==初始化==
 	init {
-		getVector()
+		getVector2()
 	}
 
 	//==方法==
+	//取得新聞清單
 	private fun getVector() {
 		job?.cancel()
 		job = repository.getVector()
@@ -50,6 +52,28 @@ class VectorViewModel @Inject constructor(
 				Log.i("@@@", it.message ?: "unknown error")
 			}
 			.launchIn(viewModelScope)
+	}
+
+	//取得新聞清單 (Flow分割)
+	private fun getVector2() {
+		job?.cancel()
+		job = repository.getVector().commonHandle {
+			_state.value = it
+		}
+	}
+
+	//通用處理
+	private fun <T> Flow<T>.commonHandle(onEach:suspend (T) -> Unit):Job {
+		return this
+			.onStart { _isLoading.value = true }
+			.onCompletion { _isLoading.value = false }
+			.onEach { onEach(it) }
+			.catch { errorHandle(it) }
+			.launchIn(viewModelScope)
+	}
+
+	private fun errorHandle(it:Throwable) {
+		Log.i("@@@", it.message ?: "unknown error")
 	}
 
 	//==事件==
