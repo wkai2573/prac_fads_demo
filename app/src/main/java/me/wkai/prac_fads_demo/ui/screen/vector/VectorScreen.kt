@@ -1,5 +1,6 @@
 package me.wkai.prac_fads_demo.ui.screen.vector
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +19,6 @@ import coil.compose.AsyncImage
 import me.wkai.prac_fads_demo.data.model.Carousel
 import me.wkai.prac_fads_demo.data.model.Divider
 import me.wkai.prac_fads_demo.data.model.News
-import me.wkai.prac_fads_demo.data.model.Vector
 
 @Composable
 fun VectorScreen(
