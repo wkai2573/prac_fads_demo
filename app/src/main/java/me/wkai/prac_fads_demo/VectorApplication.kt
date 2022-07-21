@@ -1,4 +1,4 @@
-package me.wkai
+package me.wkai.prac_fads_demo
 
 import android.app.Application
 import co.infinum.retromock.Retromock

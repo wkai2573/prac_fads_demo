@@ -1,4 +1,4 @@
-package me.wkai.prac_fads_demo
+package me.wkai.prac_fads_demo.ui.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

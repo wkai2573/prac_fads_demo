@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import me.wkai.VectorApplication.Companion.useMockData
+import me.wkai.prac_fads_demo.VectorApplication.Companion.useMockData
 import me.wkai.prac_fads_demo.data.api.ApiConst.BASE_URL
 import me.wkai.prac_fads_demo.data.api.VectorApi
 import me.wkai.prac_fads_demo.data.model.Vector

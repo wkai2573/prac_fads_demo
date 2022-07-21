@@ -2,7 +2,7 @@ package me.wkai.prac_fads_demo.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import me.wkai.VectorApplication.Companion.useMockData
+import me.wkai.prac_fads_demo.VectorApplication.Companion.useMockData
 import me.wkai.prac_fads_demo.data.api.VectorApi
 import me.wkai.prac_fads_demo.data.model.Vector
 import javax.inject.Inject
